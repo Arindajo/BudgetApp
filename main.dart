@@ -3,6 +3,7 @@ import 'login.dart';
 import 'settings.dart';
 import 'sign.dart';
 import 'home.dart';
+import 'dashboard.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -18,9 +19,10 @@ class MyApp extends StatelessWidget {
       routes:{
         '/settings':(context)=>Settings(),
         '/sign':(context)=>Sign(),
-        '/home':(context)=>Home()
+        '/home':(context)=>Home(),
+        '/dashboard':(context)=>Dashboard()
       },
-       home: Sign(),
+       home: Dashboard(),
     );
   }
 }
