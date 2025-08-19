@@ -4,6 +4,7 @@ import 'settings.dart';
 import 'sign.dart';
 import 'home.dart';
 import 'dashboard.dart';
+import 'transaction.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
         '/settings':(context)=>Settings(),
         '/sign':(context)=>Sign(),
         '/home':(context)=>Home(),
-        '/dashboard':(context)=>Dashboard()
+        '/dashboard':(context)=>Dashboard(),
+        '/transaction':(context)=>Transaction()
       },
        home: Dashboard(),
     );

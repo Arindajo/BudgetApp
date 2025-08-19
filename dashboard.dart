@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'transaction.dart';
 
 class Dashboard extends StatelessWidget {
   
@@ -35,7 +36,12 @@ class Dashboard extends StatelessWidget {
               ElevatedButton(
                 child:Text("Add Transaction",style:TextStyle(fontWeight:FontWeight.bold,fontSize:20)),
                
-               onPressed:(){}
+               onPressed:(){
+                Navigator.push(
+                  context ,
+                MaterialPageRoute (builder:(context)=>Transaction())
+                );
+               }
               )
             
           ],),
