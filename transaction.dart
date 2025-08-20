@@ -1,14 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'transactionmodel.dart';
 
-class Transaction extends StatefulWidget {
+class AddTransaction extends StatefulWidget {
  
 
   @override
-  State<Transaction> createState() => _TransactionState();
+  State<AddTransaction> createState() => _TransactionState();
 }
 
-class _TransactionState extends State<Transaction> {
+class _TransactionState extends State<AddTransaction> {
  // to get access to what the user typed
  TextEditingController myAmountController = TextEditingController();
  TextEditingController notesController = TextEditingController();
@@ -17,14 +18,41 @@ class _TransactionState extends State<Transaction> {
  String transactiontype = "Income";//this is the default
 
  //defining a list of categories
- List<String>categories  = ["Food","Transport","Clothes","Groceries",
- "Rent"];
+ List<String>expensecategories  = ["Food","Transport","Clothes","Groceries","Rent"];
+ List<String>incomecategories =["salary","gig","side buisness","financial support"];
 
  //a variable to hold the selected Category
  String?selectedcategory;
 
  //a variable to hold the selected date
  DateTime selectedDate =DateTime.now();
+
+ void _save(){
+  //reading values from state variables and controllers
+  String amountText = myAmountController.text;
+  String notesText = notesController.text;
+  String transactionType = transactiontype;
+  String selectedCategory = selectedcategory ?? "Uncategorized";
+  DateTime date = selectedDate;
+
+
+//simple validation
+ if (amountText.isEmpty) {
+    print("Please enter an amount");
+    return;
+  }
+
+  double amount = double.tryParse(amountText) ?? 0;
+
+  // 3. Print values to console (for now)
+  print("Transaction Saved:");
+  print("Amount: $amount");
+  print("Type: $transactiontype");
+  print("Category: $selectedcategory");
+  print("Date: $date");
+  print("Notes: $notesText");
+
+ }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +84,7 @@ class _TransactionState extends State<Transaction> {
            Column(
              children: [
                RadioListTile(
-                title:Text("Income"),
+                title:Expanded(child: Text("Income")),
                 value:"Income",
                 groupValue:transactiontype,
                 onChanged:(value){
@@ -69,7 +97,7 @@ class _TransactionState extends State<Transaction> {
              ],
            ),
            RadioListTile(
-            title:Text("Expense"),
+            title:Expanded(child: Text("Expenses")),
             groupValue:transactiontype,
             value:"Expenses",
             onChanged:(value){
@@ -82,7 +110,28 @@ class _TransactionState extends State<Transaction> {
            )
               
               ],
+
+              
             ),
+
+             // Category Dropdown
+              DropdownButton<String>(
+                value: selectedcategory,
+                hint: Text("Select Category"),
+                onChanged: (value) {
+                  setState(() {
+                    selectedcategory = value;
+                  });
+                },
+                items: (transactiontype == "Income" ? incomecategories : expensecategories)
+      .map((cat) => DropdownMenuItem(
+            value: cat,
+            child: Text(cat),
+          ))
+      .toList(),
+),
+              
+              SizedBox(height: 20),
             Column(
               mainAxisAlignment:MainAxisAlignment.center,
               children: [
@@ -114,23 +163,33 @@ class _TransactionState extends State<Transaction> {
                 
 
                 ),
-                  Spacer(),
+                  SizedBox(height:20),
                 ElevatedButton(
-            onPressed: () {
-              // Collect values
-              String amount = myAmountController.text;
-              String notes = notesController.text;
-              String type = transactiontype;
-              String category = selectedcategory ?? "No Category";
-              String date = selectedDate.toLocal().toString().split(' ')[0];
+            onPressed:(){
+              final text = myAmountController.text.trim();
+              final amount = double.tryParse(text);
+              if (amount == null||amount<=0){
+                 ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Enter a valid amount")),
+                 );
+                 return;
+              }
+              final tx =Transactionmodel(
+                amount:amount,
+                transactiontype:transactiontype,
+                category:selectedcategory ?? "other", 
+                date:selectedDate,
+                notes:notesController.text.trim().isEmpty ? null:notesController.text.trim(),
 
-              // For now: print to console
-              print("Amount: $amount");
-              print("Notes: $notes");
-              print("Type: $type");
-              print("Category: $category");
-              print("Date: $date");
+
+
+
+
+
+              );
+              Navigator.pop(context,tx);
             },
+              
             child: Text("S A V E"),
           ),
               ],

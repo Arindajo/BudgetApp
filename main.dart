@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         '/sign':(context)=>Sign(),
         '/home':(context)=>Home(),
         '/dashboard':(context)=>Dashboard(),
-        '/transaction':(context)=>Transaction()
+        '/transaction':(context)=>AddTransaction()
       },
        home: Dashboard(),
     );
