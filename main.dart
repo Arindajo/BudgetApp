@@ -5,6 +5,7 @@ import 'sign.dart';
 import 'home.dart';
 import 'dashboard.dart';
 import 'transaction.dart';
+import 'report.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         '/dashboard':(context)=>Dashboard(),
         '/transaction':(context)=>AddTransaction()
       },
-       home: Dashboard(),
+       home: Reports(),
     );
   }
 }
