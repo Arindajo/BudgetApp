@@ -7,8 +7,16 @@ class Budget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("B U D G E T S"),
+        title: Text("B U D G E T S",style: TextStyle(color:Colors.white),),
+        backgroundColor:Colors.purple
       ),
+      body:Column(children: [
+        //button
+        ElevatedButton(
+          child: Text("Set Budget"),
+          onPressed:(){}
+        )
+      ],)
     );
   }
 }
