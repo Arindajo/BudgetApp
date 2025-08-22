@@ -23,9 +23,15 @@ class _ReportsState extends State<Reports> {
   Widget build(BuildContext context) {
        Map<String, double> dataMap = {};
 
-    for (var t in widget.transactions) {
-      dataMap[t.category] = (dataMap[t.category] ?? 0) + t.amount;
-    }
+
+for (final t in widget.transactions) {
+  final isExpense = t.transactiontype == "Expenses"; 
+  if (isExpense) {
+    dataMap[t.category] = (dataMap[t.category] ?? 0) + t.amount;
+  }
+}
+
+ 
     return Scaffold(
       appBar:AppBar(
         title:Text("R E P O R T S",style:TextStyle(color:Colors.white)),
@@ -43,11 +49,11 @@ class _ReportsState extends State<Reports> {
           ),
           chartValuesOptions: ChartValuesOptions(
             showChartValueBackground: true,
-            showChartValues: true
+            showChartValues: true,
+            showChartValuesInPercentage: true
           ),
 
           )
       )
     );
-  }
-}
+  }}
