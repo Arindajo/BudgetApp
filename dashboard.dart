@@ -38,43 +38,45 @@ double get balance => totalIncome - totalExpense;
       body:Center(
         child: Padding(
           padding: const EdgeInsets.all(25.0),
-          child: Column(children: [
-           Text("Current Balance: ${balance.toStringAsFixed(0)} UGX"),SizedBox(height:25),
-Row(
-  children: [
-    Text("Income: ${totalIncome.toStringAsFixed(0)} UGX"),
-    SizedBox(width: 25),
-    Text("Expenses: ${totalExpense.toStringAsFixed(0)} UGX"),
-  ],
-),
-
+          child: SingleChildScrollView(
+            child: Column(children: [
+             Text("Current Balance: ${balance.toStringAsFixed(0)} UGX"),SizedBox(height:25),
+            Row(
+              children: [
+                Expanded(child: Text("Income: ${totalIncome.toStringAsFixed(0)} UGX")),
+                SizedBox(width: 25),
+                Expanded(child: Text("Expenses: ${totalExpense.toStringAsFixed(0)} UGX")),
+              ],
+            ),
             
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Container(
-                child: Text('Spending Chart'),
-                width:200,
-                height:200,
-                color: Colors.purple,
-                        
-                ),
-            ),SizedBox(height:25),
-              ElevatedButton(
-                child:Text("Add Transaction",style:TextStyle(fontWeight:FontWeight.bold,fontSize:20)),
-               
-              onPressed: () async {
-  final tx = await Navigator.push<Transactionmodel>(
-    context,
-    MaterialPageRoute(builder: (_) => AddTransaction()),
-  );
-
-  if (tx != null) {
-   widget.onAddTransaction(tx);
-  }
-}
-              )
+              
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Container(
+                  child: Text('Spending Chart'),
+                  width:200,
+                  height:200,
+                  color: Colors.purple,
+                          
+                  ),
+              ),SizedBox(height:25),
+                ElevatedButton(
+                  child:Text("Add Transaction",style:TextStyle(fontWeight:FontWeight.bold,fontSize:20)),
+                 
+                onPressed: () async {
+              final tx = await Navigator.push<Transactionmodel>(
+                context,
+                MaterialPageRoute(builder: (_) => AddTransaction()),
+              );
             
-          ],),
+              if (tx != null) {
+               widget.onAddTransaction(tx);
+              }
+            }
+                )
+              
+            ],),
+          ),
         ),
       )
     );
