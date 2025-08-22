@@ -13,12 +13,12 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  final List<Transactionmodel> _transactions=[];
-  double get totalIncome =>
-    _transactions.where((t) => t.transactiontype == "Income").fold(0.0, (sum, t) => sum + t.amount);
 
-double get totalExpense =>
-    _transactions.where((t) => t.transactiontype == "Expenses").fold(0.0, (sum, t) => sum + t.amount);
+  double get totalIncome => widget.transactions
+    .where((t) => t.transactiontype == "Income").fold(0.0, (sum, t) => sum + t.amount);
+
+double get totalExpense => widget.transactions
+    .where((t) => t.transactiontype == "Expenses").fold(0.0, (sum, t) => sum + t.amount);
 
 double get balance => totalIncome - totalExpense;
 
