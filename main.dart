@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
+
 import 'settings.dart';
 import 'sign.dart';
 import 'home.dart';
-import 'dashboard.dart';
+
 import 'transaction.dart';
 import 'navbar.dart';
 void main() {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
      
         '/transaction':(context)=>AddTransaction()
       },
-       home:NavBar(),
+       home:Navbar(),
     );
   }
 }
