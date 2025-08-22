@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'report.dart';
 import 'dashboard.dart';
-
+import 'transactionmodel.dart';
+import 'budgets.dart';
+import 'transaction.dart';
 class Navbar extends StatefulWidget {
   const Navbar({super.key});
 
@@ -10,6 +12,25 @@ class Navbar extends StatefulWidget {
 }
 
 class _NavbarState extends State<Navbar> {
+  final List<Transactionmodel> _transactions=[];
+  void _addTransaction(Transactionmodel tx) {
+    setState(() {
+      _transactions.add(tx);
+    });
+  }
+
+
+  double get totalIncome =>
+    _transactions.where((t) => t.transactiontype == "Income").fold(0.0, (sum, t) => sum + t.amount);
+
+double get totalExpense =>
+    _transactions.where((t) => t.transactiontype == "Expenses").fold(0.0, (sum, t) => sum + t.amount);
+
+double get balance => totalIncome - totalExpense;
+
+
+
+
   //method that updtes the new selected index
   void _Navigate(int index){
     setState((){
@@ -19,16 +40,19 @@ class _NavbarState extends State<Navbar> {
 
 //keeps track of current page to display
 int _selectedIndex = 0;
-final List _pages=[
-  //home page
-   Dashboard(),
-  //budgets page
-  Budgets(),
-  //reports page
-  Reports(),
-];
+
   @override
   Widget build(BuildContext context) {
+    final List _pages=[
+  //home page
+   Dashboard(
+    transactions:_transactions,
+    onAddTransaction:_addTransaction),
+  //budgets page
+  Budget(),
+  //reports page
+  Reports(transactions: _transactions),
+];
     return Scaffold(
       body:_pages[_selectedIndex],
       

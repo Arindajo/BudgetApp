@@ -5,7 +5,7 @@ import 'sign.dart';
 import 'home.dart';
 import 'dashboard.dart';
 import 'transaction.dart';
-import 'report.dart';
+import 'navbar.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -22,10 +22,10 @@ class MyApp extends StatelessWidget {
         '/settings':(context)=>Settings(),
         '/sign':(context)=>Sign(),
         '/home':(context)=>Home(),
-        '/dashboard':(context)=>Dashboard(),
+     
         '/transaction':(context)=>AddTransaction()
       },
-       home: Reports(),
+       home:NavBar(),
     );
   }
 }

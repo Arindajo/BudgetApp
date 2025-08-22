@@ -1,8 +1,13 @@
 import 'package:budget_app/transactionmodel.dart';
 import 'package:flutter/material.dart';
 import 'transaction.dart';
+import 'report.dart';
 
 class Dashboard extends StatefulWidget {
+    final List<Transactionmodel> transactions;
+  final Function(Transactionmodel) onAddTransaction;
+
+  Dashboard({required this.transactions, required this.onAddTransaction});
   @override
   State<Dashboard> createState() => _DashboardState();
 }
@@ -17,13 +22,19 @@ double get totalExpense =>
 
 double get balance => totalIncome - totalExpense;
 
+
+
+
     @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
         backgroundColor: Colors.purple,
-        title:Text("D A S H B O A R D",style:TextStyle(fontSize:20,color:Colors.white))
+        title:Text("D A S H B O A R D",style:TextStyle(fontSize:20,color:Colors.white)),
+  
       ),
+           
+      
       body:Center(
         child: Padding(
           padding: const EdgeInsets.all(25.0),
@@ -58,9 +69,7 @@ Row(
   );
 
   if (tx != null) {
-    setState(() {
-      _transactions.add(tx);
-    });
+   widget.onAddTransaction(tx);
   }
 }
               )
