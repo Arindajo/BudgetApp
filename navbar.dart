@@ -28,8 +28,13 @@ double get totalExpense =>
 
 double get balance => totalIncome - totalExpense;
 
+//budget
+double monthly_budget = 0;
 
-
+//method to update budget
+void _setmonthlybudget(double value){
+  setState(() => monthly_budget =  value);
+}
 
   //method that updtes the new selected index
   void _Navigate(int index){
@@ -47,7 +52,11 @@ int _selectedIndex = 0;
   //home page
    Dashboard(
     transactions:_transactions,
-    onAddTransaction:_addTransaction),
+    onAddTransaction:_addTransaction,
+    monthly_budget: monthly_budget,
+    onSetBudget: _setmonthlybudget,
+    
+    ),
   //budgets page
   Budget(),
   //reports page
@@ -66,7 +75,7 @@ int _selectedIndex = 0;
               label:'Home',
             ),
             BottomNavigationBarItem( 
-              icon: Icon(Icons.favorite),
+              icon: Icon(Icons.money),
               label:'Budgets'
               ),
               BottomNavigationBarItem(
