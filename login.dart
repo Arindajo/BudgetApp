@@ -11,53 +11,56 @@ class login extends StatelessWidget{
          ),
 
          body:Form(
-          child:Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-          Padding(padding: EdgeInsets.all(5)),
-          Text('LOGIN',style:TextStyle(fontSize:25,fontWeight:FontWeight.bold)),
-          TextFormField(
-            decoration:InputDecoration(
-              labelText:"Username",
-              prefixIcon:Icon(Icons.person),
-              border:OutlineInputBorder(borderRadius: BorderRadius.circular(20)))
-            ,
-            validator:(value){
-              if(value == null||value.isEmpty){
-                 return("please enter Username");
+          child:Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+            Padding(padding: EdgeInsets.all(5)),
+            Text('LOGIN',style:TextStyle(fontSize:25,fontWeight:FontWeight.bold)),
+            TextFormField(
+              decoration:InputDecoration(
+                labelText:"Username",
+                prefixIcon:Icon(Icons.person),
+                border:OutlineInputBorder(borderRadius: BorderRadius.circular(20)))
+              ,
+              validator:(value){
+                if(value == null||value.isEmpty){
+                   return("please enter Username");
+                }
+                return null;
               }
-              return null;
-            }
-          
-
-
-          ),
-
-         SizedBox(height:15),
-
-          TextFormField(
-            decoration:InputDecoration(
-              labelText:"Password",
-              prefixIcon:Icon(Icons.lock),
-              border:OutlineInputBorder(borderRadius: BorderRadius.circular(20))
+            
+            
+            
             ),
-            validator:(value){
-              if(value ==null||value.isEmpty){
-                return("please enter valid password");
+            
+                     SizedBox(height:15),
+            
+            TextFormField(
+              decoration:InputDecoration(
+                labelText:"Password",
+                prefixIcon:Icon(Icons.lock),
+                border:OutlineInputBorder(borderRadius: BorderRadius.circular(20))
+              ),
+              validator:(value){
+                if(value ==null||value.isEmpty){
+                  return("please enter valid password");
+                }
+                if (value.length<8){
+                  return("Password must beatleast 8 characters");
+                }
+                
+                return null;
               }
-              if (value.length<8){
-                return("Password must beatleast 8 characters");
-              }
-              
-              return null;
-            }
-          ),
-          SizedBox(height: 15,),
-          ElevatedButton(
-            child:Text("LOG IN",style:TextStyle(color:Colors.purple,)),
-            onPressed:(){}
+            ),
+            SizedBox(height: 15,),
+            ElevatedButton(
+              child:Text("LOG IN",style:TextStyle(color:Colors.purple,)),
+              onPressed:(){}
+            )
+                     ],),
           )
-         ],)
     ));
   }
 

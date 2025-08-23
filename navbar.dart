@@ -58,7 +58,10 @@ int _selectedIndex = 0;
     
     ),
   //budgets page
-  Budget(),
+  Budget(
+   
+   transactions: _transactions,
+  ),
   //reports page
   Reports(transactions: _transactions),
 ];

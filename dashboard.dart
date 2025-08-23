@@ -6,8 +6,10 @@ import 'report.dart';
 class Dashboard extends StatefulWidget {
     final List<Transactionmodel> transactions;
   final Function(Transactionmodel) onAddTransaction;
+  final double monthly_budget;
+  final void Function(double) onSetBudget;
 
-  Dashboard({required this.transactions, required this.onAddTransaction});
+  Dashboard({required this.transactions, required this.onSetBudget, required this.onAddTransaction, required this.monthly_budget});
   @override
   State<Dashboard> createState() => _DashboardState();
 }

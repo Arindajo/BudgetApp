@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'transactionmodel.dart';
 
 class Budget extends StatefulWidget {
+    final List<Transactionmodel> transactions;
   final double? currentBudget;
 
-  const Budget({super.key, this.currentBudget});
+  const Budget({super.key, this.currentBudget, required this.transactions});
 
   @override
   State<Budget> createState() => _BudgetState();
@@ -11,7 +13,12 @@ class Budget extends StatefulWidget {
 
 class _BudgetState extends State<Budget> {
   double? totalBudget;
-  double totalSpent = 0; //this is updated from transactions
+  double get totalSpent {
+  return widget.transactions
+      .where((t) => t.transactiontype == "Expenses")
+      .fold(0.0, (sum, t) => sum + t.amount);
+}
+
   TextEditingController budgetController = TextEditingController();
 
   @override
