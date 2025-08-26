@@ -32,8 +32,39 @@ double get balance => totalIncome - totalExpense;
     return Scaffold(
       appBar:AppBar(
         backgroundColor: Colors.purple,
-        title:Text("D A S H B O A R D",style:TextStyle(fontSize:20,color:Colors.white)),
+     leading: Builder(
+       builder: (context) {
+         return IconButton(
+          icon:Icon(Icons.menu,color:Colors.white),
+          onPressed:(){
+            Scaffold.of(context).openDrawer();
+          }
+          );
+       }
+     ),
   
+      ),
+      drawer:Drawer(
+        child:Column(children: [
+          //logo
+          DrawerHeader(child: Image.asset('lib/images/logo.jpeg')),
+
+          //settings
+          ListTile(
+            leading:
+              Icon(Icons.settings),
+              title:Text("Settings"),),
+          ListTile(
+            leading:
+            Icon(Icons.info),
+            title:Text("About"),
+          ),
+          ListTile(
+            leading:
+            Icon(Icons.logout),
+            title:Text("Logout")
+          )
+        ],)
       ),
            
       
@@ -63,7 +94,7 @@ double get balance => totalIncome - totalExpense;
                   ),
               ),SizedBox(height:25),
                 ElevatedButton(
-                  child:Text("Add Transaction",style:TextStyle(fontWeight:FontWeight.bold,fontSize:20)),
+                  child:Text("Add Transaction",style:TextStyle(fontWeight:FontWeight.bold,color:Colors.white,fontSize:20)),
                  
                 onPressed: () async {
               final tx = await Navigator.push<Transactionmodel>(
@@ -74,7 +105,10 @@ double get balance => totalIncome - totalExpense;
               if (tx != null) {
                widget.onAddTransaction(tx);
               }
-            }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor:Colors.purple
+            ),
                 )
               
             ],),
