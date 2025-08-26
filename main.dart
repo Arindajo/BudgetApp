@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'settings.dart';
 import 'sign.dart';
 import 'home.dart';
-
+import 'about.dart';
 import 'transaction.dart';
 import 'navbar.dart';
 void main() {
@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
         '/sign':(context)=>Sign(),
         '/home':(context)=>Home(),
      
-        '/transaction':(context)=>AddTransaction()
+        '/transaction':(context)=>AddTransaction(),
+        '/about':(context)=>About()
       },
        home:Navbar(),
     );

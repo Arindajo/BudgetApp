@@ -53,16 +53,27 @@ double get balance => totalIncome - totalExpense;
           ListTile(
             leading:
               Icon(Icons.settings),
-              title:Text("Settings"),),
+              title:Text("Settings"),
+              onTap:(){
+                Navigator.pop(context);
+                Navigator.pushNamed(context,'/settings');
+              }
+          ),
           ListTile(
             leading:
             Icon(Icons.info),
             title:Text("About"),
+            onTap:(){
+              Navigator.pushNamed(context,'/about');
+            }
           ),
           ListTile(
             leading:
             Icon(Icons.logout),
-            title:Text("Logout")
+            title:Text("Logout"),
+            onTap:(){
+
+            }
           )
         ],)
       ),
