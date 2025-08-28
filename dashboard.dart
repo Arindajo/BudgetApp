@@ -31,7 +31,7 @@ double get balance => totalIncome - totalExpense;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:AppBar(
-        backgroundColor: Colors.purple,
+      backgroundColor: Colors.purple,
      leading: Builder(
        builder: (context) {
          return IconButton(
@@ -47,8 +47,17 @@ double get balance => totalIncome - totalExpense;
       drawer:Drawer(
         child:Column(children: [
           //logo
-          DrawerHeader(child: Image.asset('assets/images/logo.jpeg')),
-
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: CircleAvatar(
+              backgroundColor: const Color.fromARGB(255, 223, 120, 241),
+              radius: 50,
+             backgroundImage: AssetImage('assets/images/logo.jpeg')),
+          ),
+            
+            Text("TrackFunds",style: TextStyle(fontWeight:FontWeight.bold,fontSize:25),),
+            SizedBox(height:15),
+            
           //settings
           ListTile(
             leading:
