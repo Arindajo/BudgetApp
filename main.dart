@@ -5,7 +5,7 @@ import 'sign.dart';
 import 'home.dart';
 import 'about.dart';
 import 'transaction.dart';
-import 'navbar.dart';
+import 'splashscreen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         '/transaction':(context)=>AddTransaction(),
         '/about':(context)=>About()
       },
-       home:Navbar(),
+       home:Splashscreen(),
     );
   }
 }
