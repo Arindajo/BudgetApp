@@ -57,7 +57,11 @@ double get balance => totalIncome - totalExpense;
             
             Text("TrackFunds",style: TextStyle(fontWeight:FontWeight.bold,fontSize:25),),
             SizedBox(height:15),
+          ListTile(
+            leading: Icon(Icons.wallet),
+            title:Text("My Debts"),
             
+          ), 
           //settings
           ListTile(
             leading:
