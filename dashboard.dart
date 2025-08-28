@@ -47,7 +47,7 @@ double get balance => totalIncome - totalExpense;
       drawer:Drawer(
         child:Column(children: [
           //logo
-          DrawerHeader(child: Image.asset('lib/images/logo.jpeg')),
+          DrawerHeader(child: Image.asset('assets/images/logo.jpeg')),
 
           //settings
           ListTile(
