@@ -133,7 +133,11 @@ double get balance => totalIncome - totalExpense;
           child: SingleChildScrollView(
             child: Column(children: [
               //logo
-              
+              CircleAvatar(
+                backgroundImage: AssetImage("assets/images/logo.jpeg"),
+                radius:45,
+              ),
+              SizedBox(height:20),
              Text("Current Balance: ${balance.toStringAsFixed(0)} UGX",style:TextStyle(fontWeight:FontWeight.bold)),SizedBox(height:25),
             Row(
               children: [
