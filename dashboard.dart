@@ -34,18 +34,21 @@ double _opacity=1.0;
     super.initState();
 
     //timer
-    Timer.periodic(Duration(seconds:25),(timer){
-      setState((){
-        CurrentQuoteIndex = (CurrentQuoteIndex+1)%Quotes.length;
-        _opacity=0;
-      });
+     Timer.periodic(Duration(seconds: 5), (timer) {
+    // Step 1: fade out current quote
+    setState(() {
+      _opacity = 0.0;
     });
 
-    Future.delayed(Duration(milliseconds:500),(){
-     setState((){
-      _opacity=1.0;
-     });
+    // Step 2: after fade out, change quote + fade in
+    Future.delayed(Duration(milliseconds: 500), () {
+      if (!mounted) return; // safety check
+      setState(() {
+        CurrentQuoteIndex = (CurrentQuoteIndex + 1) % Quotes.length;
+        _opacity = 1.0;
+      });
     });
+  });
   }
 
   double get totalIncome => widget.transactions
@@ -129,16 +132,18 @@ double get balance => totalIncome - totalExpense;
           padding: const EdgeInsets.all(25.0),
           child: SingleChildScrollView(
             child: Column(children: [
-             Text("Current Balance: ${balance.toStringAsFixed(0)} UGX"),SizedBox(height:25),
+              //logo
+              
+             Text("Current Balance: ${balance.toStringAsFixed(0)} UGX",style:TextStyle(fontWeight:FontWeight.bold)),SizedBox(height:25),
             Row(
               children: [
-                Expanded(child: Text("Income: ${totalIncome.toStringAsFixed(0)} UGX")),
+                Expanded(child: Text("Income: ${totalIncome.toStringAsFixed(0)} UGX",style:TextStyle(fontWeight:FontWeight.bold))),
                 SizedBox(width: 25),
-                Expanded(child: Text("Expenses: ${totalExpense.toStringAsFixed(0)} UGX")),
+                Expanded(child: Text("Expenses: ${totalExpense.toStringAsFixed(0)} UGX",style:TextStyle(fontWeight:FontWeight.bold))),
               ],
             ),
             
-              
+             SizedBox(height:15) ,
               
                  AnimatedOpacity(
                   duration: Duration(milliseconds: 500),
@@ -165,7 +170,7 @@ double get balance => totalIncome - totalExpense;
                     SizedBox(height:15),
                     Expanded(child: Text(
                       Quotes[CurrentQuoteIndex],
-                      style:TextStyle(fontSize:16,fontStyle: FontStyle.italic,color:const Color.fromARGB(255, 206, 83, 228))
+                      style:TextStyle(fontSize:16,fontStyle: FontStyle.italic,color:const Color.fromARGB(255, 250, 245, 245))
                     )
                     ),
                   ],)
@@ -188,7 +193,7 @@ double get balance => totalIncome - totalExpense;
               }
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor:Colors.purple
+              backgroundColor:const Color.fromARGB(255, 221, 79, 247)
             ),
                 )
               
