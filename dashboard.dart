@@ -2,6 +2,7 @@ import 'package:budget_app/transactionmodel.dart';
 import 'package:flutter/material.dart';
 import 'transaction.dart';
 import 'report.dart';
+import 'dart:async';
 
 class Dashboard extends StatefulWidget {
     final List<Transactionmodel> transactions;
@@ -9,12 +10,43 @@ class Dashboard extends StatefulWidget {
   final double monthly_budget;
   final void Function(double) onSetBudget;
 
+  //for the quotes
+  
+
   Dashboard({required this.transactions, required this.onSetBudget, required this.onAddTransaction, required this.monthly_budget});
   @override
+  
   State<Dashboard> createState() => _DashboardState();
+  
 }
 
 class _DashboardState extends State<Dashboard> {
+int CurrentQuoteIndex=0;
+double _opacity=1.0;
+
+  List<String> Quotes =[
+    "Do not save what is left after spending; spend what is left after saving",
+    "Small savigs today lead to big gains tomorrow",
+    "A budget tells your money where to go instead of wondering where it went"
+  ];
+  //for quotes
+  void initState(){
+    super.initState();
+
+    //timer
+    Timer.periodic(Duration(seconds:25),(timer){
+      setState((){
+        CurrentQuoteIndex = (CurrentQuoteIndex+1)%Quotes.length;
+        _opacity=0;
+      });
+    });
+
+    Future.delayed(Duration(milliseconds:500),(){
+     setState((){
+      _opacity=1.0;
+     });
+    });
+  }
 
   double get totalIncome => widget.transactions
     .where((t) => t.transactiontype == "Income").fold(0.0, (sum, t) => sum + t.amount);
@@ -107,16 +139,41 @@ double get balance => totalIncome - totalExpense;
             ),
             
               
-              Padding(
-                padding: const EdgeInsets.all(25.0),
+              
+                 AnimatedOpacity(
+                  duration: Duration(milliseconds: 500),
+                  opacity:_opacity,
+                 
+                
                 child: Container(
-                  child: Text('Spending Chart'),
-                  width:200,
-                  height:200,
-                  color: Colors.purple,
+                  padding: const EdgeInsets.all(25.0),
+                  decoration:BoxDecoration(
+
+                    color:const Color.fromARGB(255, 213, 69, 238),
+                    borderRadius:BorderRadius.circular(15),
+                    boxShadow:[
+                      BoxShadow(
+                            color:Colors.purple.withAlpha(180),
+                            blurRadius: 10,
+                            offset:Offset(0,5)
+
+                      )
+                    ]
+                  ),
+                  child:Row(children: [
+                    Icon(Icons.savings),
+                    SizedBox(height:15),
+                    Expanded(child: Text(
+                      Quotes[CurrentQuoteIndex],
+                      style:TextStyle(fontSize:16,fontStyle: FontStyle.italic,color:const Color.fromARGB(255, 206, 83, 228))
+                    )
+                    ),
+                  ],)
+                  
+                  )
                           
                   ),
-              ),SizedBox(height:25),
+              SizedBox(height:25),
                 ElevatedButton(
                   child:Text("Add Transaction",style:TextStyle(fontWeight:FontWeight.bold,color:Colors.white,fontSize:20)),
                  
