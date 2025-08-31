@@ -9,9 +9,12 @@ class _DebtState extends State<Debt> {
   List<String> DebtOption=[
     "Debtor","Creditor"
   ];
-
+  List<Map<String, dynamic>> Debts =[];
+bool showForm = false;
  String? selectedOption;
-
+TextEditingController namecontroller = TextEditingController();
+TextEditingController debtamountcontroller =TextEditingController();
+TextEditingController infocontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +23,13 @@ class _DebtState extends State<Debt> {
         child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            CircleAvatar(
+             backgroundImage: AssetImage("assets/images/logo.jpeg"),
+             radius:40
+            ),
+            Text("Borrowings and Lendings",style:TextStyle(fontSize:20,fontWeight:FontWeight.bold)),
+         
+            if(showForm)
              DropdownButtonFormField<String>(
              value:selectedOption,
              hint:Text("Select type"),
@@ -47,6 +57,7 @@ class _DebtState extends State<Debt> {
               ),
             SizedBox(height:15),
             TextField(
+              controller:debtamountcontroller ,
               decoration:InputDecoration(
                 labelText:"Debt Amount",
                 hintText:"Enter Amount",
@@ -55,6 +66,7 @@ class _DebtState extends State<Debt> {
             ),
             SizedBox(height:15),
               TextField(
+                controller: namecontroller,
               decoration:InputDecoration(
                 labelText:"Name",
                 hintText:"Enter Name",
@@ -63,6 +75,7 @@ class _DebtState extends State<Debt> {
             ),
             SizedBox(height:15),
               TextField(
+                controller: infocontroller,
               decoration:InputDecoration(
                 labelText:"Information",
                 hintText:"Enter details",
@@ -83,10 +96,22 @@ class _DebtState extends State<Debt> {
               
             )
               ]
+            ),
+           
+         
+        
+         ])
+      ),
+      //floating action button
+         floatingActionButton:FloatingActionButton(
+              onPressed:(){
+                setState((){
+                  showForm =!showForm;
+                });
+               
+              },
+               child:Icon(Icons.add,size:40,color:Colors.purple)
             )
-          ],
-        ),
-      )
     );
   }
 }
