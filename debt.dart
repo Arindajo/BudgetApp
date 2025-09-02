@@ -126,7 +126,20 @@ Widget buildDebtForm(){
             ),SizedBox(width:100),
             ElevatedButton(
               child:Text("Save"),
-              onPressed: (){}, 
+              onPressed: (){
+                setState((){
+                  Debts.add({
+                    "type":selectedOption,
+                    "debtAmount":debtamountcontroller.text,
+                    "name":namecontroller.text,
+                    "info":infocontroller.text
+                  });
+                });
+                //clear text fields after saving
+                debtamountcontroller.clear();
+                namecontroller.clear();
+                infocontroller.clear();
+              }, 
               
             )
               ]
