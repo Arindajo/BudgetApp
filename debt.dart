@@ -57,7 +57,7 @@ TextEditingController infocontroller = TextEditingController();
               context: context, 
               builder: (context){
                return AlertDialog(
-               title: Text("Edit Debt"),
+               title: Text("Edit Debt",style:TextStyle(fontWeight:FontWeight.bold)),
                content: Column(
               mainAxisSize:MainAxisSize.min,
               children:[
