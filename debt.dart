@@ -44,6 +44,52 @@ TextEditingController infocontroller = TextEditingController();
           return ListTile(
              title: Text("${debt['name']} - ${debt['amount']}"),
         subtitle: Text("${debt['type']} • ${debt['info']}"),
+        trailing: IconButton(
+          onPressed: (){
+            //load current values
+            namecontroller.text=debt["name"];
+            debtamountcontroller.text=debt["debtamount"];
+            infocontroller.text=debt["Information"];
+            selectedOption=debt["debtType"];
+
+            //showing a dailog for editing
+            showDialog(
+              context: context, 
+              builder: (context){
+               return AlertDialog(
+               title: Text("Edit Debt"),
+               content: Column(
+              mainAxisSize:MainAxisSize.min,
+              children:[
+                TextField(controller:namecontroller,decoration: InputDecoration(labelText:"Name")),
+                TextField(controller:debtamountcontroller,decoration:InputDecoration(labelText:"Info")),
+                TextField(controller:infocontroller,decoration:InputDecoration(labelText:"info"))
+
+              ]
+               ),
+               actions: [
+                TextButton(
+                  onPressed: (){
+                    //when the button is pressed , we update the list
+                    setState((){
+                      Debts[index] ={
+                   "type":selectedOption,
+                   "debtamount":debtamountcontroller.text,
+                   "name":namecontroller.text,
+                   "info":infocontroller.text,
+                      };
+                    });
+                    Navigator.pop(context);
+                  }, 
+                  child: Text("save"))
+               ],
+               );
+              }
+              
+              );
+          },
+          icon: Icon(Icons.edit)
+          ),
           );
         }
       );
@@ -134,6 +180,7 @@ Widget buildDebtForm(){
                     "name":namecontroller.text,
                     "info":infocontroller.text
                   });
+                  showForm=false;
                 });
                 //clear text fields after saving
                 debtamountcontroller.clear();
