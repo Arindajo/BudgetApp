@@ -26,7 +26,7 @@ double _opacity=1.0;
 
   List<String> Quotes =[
     "Do not save what is left after spending; spend what is left after saving",
-    "Small savigs today lead to big gains tomorrow",
+    "Small Savings today, lead to Big Gains tomorrow",
     "A budget tells your money where to go instead of wondering where it went"
   ];
   //for quotes
@@ -95,6 +95,9 @@ double get balance => totalIncome - totalExpense;
           ListTile(
             leading: Icon(Icons.wallet),
             title:Text("My Debts"),
+            onTap:(){
+              Navigator.pushNamed(context,'/debt');
+            }
             
           ), 
           //settings
@@ -169,8 +172,9 @@ double get balance => totalIncome - totalExpense;
                       )
                     ]
                   ),
+                  
                   child:Row(children: [
-                    Icon(Icons.savings),
+                    Icon(Icons.savings,color:Colors.white,size: 25,),
                     SizedBox(height:15),
                     Expanded(child: Text(
                       Quotes[CurrentQuoteIndex],
@@ -184,7 +188,7 @@ double get balance => totalIncome - totalExpense;
                   ),
               SizedBox(height:25),
                 ElevatedButton(
-                  child:Text("Add Transaction",style:TextStyle(fontWeight:FontWeight.bold,color:Colors.white,fontSize:20)),
+                  child:Text("Add Transaction",style:TextStyle(fontWeight:FontWeight.bold,color:Colors.white,fontSize:15)),
                  
                 onPressed: () async {
               final tx = await Navigator.push<Transactionmodel>(
