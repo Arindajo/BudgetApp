@@ -61,7 +61,7 @@ class Sign extends StatelessWidget{
            }
         ),SizedBox(height:15),
         ElevatedButton(
-          child:Text("SIGN UP",style:TextStyle(fontSize:20,color:Colors.purple)),
+          child:Text("SIGN-UP",style:TextStyle(fontSize:20,color:Colors.purple)),
           onPressed:(){}
         )
         ],),
