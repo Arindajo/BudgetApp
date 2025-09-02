@@ -36,7 +36,7 @@ class _SplashscreenState extends State<Splashscreen> {
        ),
        Text("TrackFunds",style:TextStyle(fontSize:35,fontWeight:FontWeight.bold),textAlign:TextAlign.center),
        SizedBox(height:10),
-       Text("Spend Wisely, Save ffortlessly",style:TextStyle(fontSize:20),textAlign:TextAlign.center)
+       Text("Spend Wisely, Save ffortlessly",style:TextStyle(fontSize:20,fontStyle:FontStyle.italic),textAlign:TextAlign.center)
 
       ],)
     );
