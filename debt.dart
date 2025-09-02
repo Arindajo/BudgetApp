@@ -35,7 +35,7 @@ TextEditingController infocontroller = TextEditingController();
 
     Widget  buildDebtList(){
       if (Debts.isEmpty){
-        return Center(child:Text("No debts added yet"));
+        return Center(child:Text("No debts added yet",style:TextStyle(fontStyle:FontStyle.italic)));
       }
       return ListView.builder(
         itemCount:Debts.length,
