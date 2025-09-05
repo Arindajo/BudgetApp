@@ -22,7 +22,11 @@ class About extends StatelessWidget {
           SizedBox(
             height:25
           ),
-            Text("call the Developer: 0770947655",style:TextStyle(fontWeight:FontWeight.bold))
+            Text("call the Developer: 0770947655",style:TextStyle(fontWeight:FontWeight.bold)),
+              SizedBox(
+            height:25
+          ),
+           
           ],),
         ),
       )
