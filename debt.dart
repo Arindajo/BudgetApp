@@ -18,6 +18,11 @@ TextEditingController infocontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar:AppBar(
+        backgroundColor:Colors.purple,
+        title:Text("My Debts",style:TextStyle(color:Colors.white))
+      ),
+       resizeToAvoidBottomInset:true,
       body:showForm ? buildDebtForm() : buildDebtList(),
       //floating action button
          floatingActionButton:FloatingActionButton(
@@ -99,102 +104,106 @@ TextEditingController infocontroller = TextEditingController();
 
 Widget buildDebtForm(){
      return Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-             backgroundImage: AssetImage("assets/images/logo.jpeg"),
-             radius:40
-            ),
-            Text("Borrowings and Lendings",style:TextStyle(fontSize:20,fontWeight:FontWeight.bold)),
-         
-            if(showForm)
-             DropdownButtonFormField<String>(
-             value:selectedOption,
-             hint:Text("Select type"),
-             items:DebtOption.map((String option){
-              return DropdownMenuItem<String>(
-               value:option,
-               child:Text(option)
-              );
-             }).toList(),
-
-             onChanged: (value){
-              setState((){
-               selectedOption=value!;
-              });
-             },
-             decoration: InputDecoration(
-              border:OutlineInputBorder(),
-              label:Text("Debt Type")
-             ),
-             
-              
-              
-              
-              
+        padding: const EdgeInsets.all(15.0),
+       
+        child: SingleChildScrollView(
+          child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+               backgroundImage: AssetImage("assets/images/logo.jpeg"),
+               radius:40
               ),
-            SizedBox(height:15),
-            TextField(
-              controller:debtamountcontroller ,
-              decoration:InputDecoration(
-                labelText:"Debt Amount",
-                hintText:"Enter Amount",
-                border:OutlineInputBorder()
-              )
-            ),
-            SizedBox(height:15),
-              TextField(
-                controller: namecontroller,
-              decoration:InputDecoration(
-                labelText:"Name",
-                hintText:"Enter Name",
-                border:OutlineInputBorder()
-              )
-            ),
-            SizedBox(height:15),
-              TextField(
-                controller: infocontroller,
-              decoration:InputDecoration(
-                labelText:"Information",
-                hintText:"Enter details",
-                border:OutlineInputBorder()
-              )
-            ),
-            SizedBox(height:15),
-            Row(
-              children:[
-            ElevatedButton(
-              child:Text("Edit"),
-              onPressed: (){}, 
-              
-            ),SizedBox(width:100),
-            ElevatedButton(
-              child:Text("Save"),
-              onPressed: (){
+              Text("Borrowings and Lendings",style:TextStyle(fontSize:20,fontWeight:FontWeight.bold)),
+           SizedBox(height:25),
+              if(showForm)
+               DropdownButtonFormField<String>(
+               value:selectedOption,
+               hint:Text("Select type"),
+               items:DebtOption.map((String option){
+                return DropdownMenuItem<String>(
+                 value:option,
+                 child:Text(option)
+                );
+               }).toList(),
+          
+               onChanged: (value){
                 setState((){
-                  Debts.add({
-                    "type":selectedOption,
-                    "debtAmount":debtamountcontroller.text,
-                    "name":namecontroller.text,
-                    "info":infocontroller.text
-                  });
-                  showForm=false;
+                 selectedOption=value!;
                 });
-                //clear text fields after saving
-                debtamountcontroller.clear();
-                namecontroller.clear();
-                infocontroller.clear();
-              }, 
-              
-            )
-              ]
-            ),
-        
-
-        
-         ])
+               },
+               decoration: InputDecoration(
+                border:OutlineInputBorder(),
+                label:Text("Debt Type")
+               ),
+               
+                
+                
+                
+                
+                ),
+              SizedBox(height:15),
+              TextField(
+                controller:debtamountcontroller ,
+                decoration:InputDecoration(
+                  labelText:"Debt Amount",
+                  hintText:"Enter Amount",
+                  border:OutlineInputBorder()
+                )
+              ),
+              SizedBox(height:15),
+                TextField(
+                  controller: namecontroller,
+                decoration:InputDecoration(
+                  labelText:"Name",
+                  hintText:"Enter Name",
+                  border:OutlineInputBorder()
+                )
+              ),
+              SizedBox(height:15),
+                TextField(
+                  controller: infocontroller,
+                decoration:InputDecoration(
+                  labelText:"Information",
+                  hintText:"Enter details",
+                  border:OutlineInputBorder()
+                )
+              ),
+              SizedBox(height:15),
+              Row(
+                children:[
+              // ElevatedButton(
+              //   child:Text("Edit"),
+              //   onPressed: (){}, 
+              //)
+                
+               SizedBox(width:100),
+              ElevatedButton(
+                child:Text("Save"),
+                onPressed: (){
+                  setState((){
+                    Debts.add({
+                      "type":selectedOption,
+                      "debtAmount":debtamountcontroller.text,
+                      "name":namecontroller.text,
+                      "info":infocontroller.text
+                    });
+                    showForm=false;
+                  });
+                  //clear text fields after saving
+                  debtamountcontroller.clear();
+                  namecontroller.clear();
+                  infocontroller.clear();
+                }, 
+                
+              )
+                ]
+              ),
+          
+          
+          
+           ]),
+        )
      );
       
 } 

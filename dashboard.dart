@@ -1,4 +1,4 @@
-import 'package:budget_app/transactionmodel.dart';
+import 'transactionmodel.dart';
 import 'package:flutter/material.dart';
 import 'transaction.dart';
 import 'report.dart';
