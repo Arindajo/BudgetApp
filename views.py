@@ -13,3 +13,12 @@ def signup(request):
 
     user = User.objects.create_user(username=username, email=email, password=password)
     return Response({"message": "User created successfully"})
+class LoginView(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        token = Token.objects.get(key=response.data['token'])
+        return Response({
+            'token': token.key,
+            'user_id': token.user_id,
+            'username': token.user.username
+        })
