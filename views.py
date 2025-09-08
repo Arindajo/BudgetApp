@@ -1,24 +1,12 @@
-from django.contrib.auth.models import User
-from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import status
+from .serializers import SignUpSerializer
 
-@api_view(["POST"])
-def signup(request):
-    username = request.data.get("username")
-    email = request.data.get("email")
-    password = request.data.get("password")
-
-    if User.objects.filter(username=username).exists():
-        return Response({"error": "Username already exists"}, status=400)
-
-    user = User.objects.create_user(username=username, email=email, password=password)
-    return Response({"message": "User created successfully"})
-class LoginView(ObtainAuthToken):
-    def post(self, request, *args, **kwargs):
-        response = super().post(request, *args, **kwargs)
-        token = Token.objects.get(key=response.data['token'])
-        return Response({
-            'token': token.key,
-            'user_id': token.user_id,
-            'username': token.user.username
-        })
+class SignupView(APIView):
+    def post(self, request):
+        serializer = SignUpSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message":"User created Successfully"}, status =status.HTTP_201 CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
