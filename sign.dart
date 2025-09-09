@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'Services/auth_service.dart';
 
 class Sign extends StatelessWidget{
+  final TextEditingController usernamecontroller = TextEditingController();
+   final TextEditingController emailcontroller = TextEditingController();
+    final TextEditingController passwordcontroller = TextEditingController();
   @override
   Widget build(BuildContext context){
      return Scaffold(
@@ -12,6 +16,7 @@ class Sign extends StatelessWidget{
           Text("Sign Up",style:TextStyle(fontSize:25,fontWeight:FontWeight.bold,color:Colors.purple)),
           Padding(padding:EdgeInsets.all(4)),
           TextFormField(
+            controller:usernamecontroller,
             decoration:InputDecoration(
               hintText:"Enter Username",
               labelText:"Username",
@@ -27,6 +32,7 @@ class Sign extends StatelessWidget{
           ),SizedBox(height:15),
         
         TextFormField(
+          controller: emailcontroller,
           decoration:InputDecoration(
             hintText:"Enter Email",
             labelText:"Email",
@@ -44,6 +50,7 @@ class Sign extends StatelessWidget{
            }
         ),SizedBox(height:15),
         TextFormField(
+          controller: passwordcontroller,
           decoration:InputDecoration(
             hintText:"Enter Password",
             labelText:"Password",
@@ -61,8 +68,25 @@ class Sign extends StatelessWidget{
            }
         ),SizedBox(height:15),
         ElevatedButton(
+          
+          onPressed:()async {
+            final username=usernamecontroller.text;
+            final email =emailcontroller.text;
+            final password=passwordcontroller.text;
+
+            final Result = await AuthService.signup(username,email,password);
+
+            if(Result['statusCode'] ==201){
+              Navigator.pushNamed(context,'/login');
+            }
+            else{
+              final error = Result['body'];
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(error.toString()),)
+                );
+            }
+          },
           child:Text("SIGN-UP",style:TextStyle(fontSize:20,color:Colors.purple)),
-          onPressed:(){}
         )
         ],),
       ),)
