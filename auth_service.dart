@@ -22,7 +22,7 @@ class AuthService {
  static Future<Map<String, dynamic>>login(String username, String password) async{
   final response = await http.post(
     Uri.parse('$baseUrl/login/'),
-    headers:{'content-Type':'application/json'},
+    headers:{'Content-Type':'application/json'},
     body:jsonEncode({'username':username, 'password':password})
   );
 
