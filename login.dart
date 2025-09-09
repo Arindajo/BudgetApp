@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'Services/auth_service.dart';
 
 class login extends StatelessWidget{
+  final TextEditingController usernamecontroller = TextEditingController();
+   final TextEditingController passwordcontroller = TextEditingController();
   @override
+
   Widget build(BuildContext context){
     return Scaffold(
          appBar:AppBar(
@@ -19,6 +23,7 @@ class login extends StatelessWidget{
             Padding(padding: EdgeInsets.all(5)),
             Text('LOGIN',style:TextStyle(fontSize:25,fontWeight:FontWeight.bold)),
             TextFormField(
+              controller:usernamecontroller,
               decoration:InputDecoration(
                 labelText:"Username",
                 prefixIcon:Icon(Icons.person),
@@ -38,6 +43,7 @@ class login extends StatelessWidget{
                      SizedBox(height:15),
             
             TextFormField(
+              controller: passwordcontroller,
               decoration:InputDecoration(
                 labelText:"Password",
                 prefixIcon:Icon(Icons.lock),
@@ -56,8 +62,21 @@ class login extends StatelessWidget{
             ),
             SizedBox(height: 15,),
             ElevatedButton(
+              
+              onPressed:()async{
+                final username = usernamecontroller.text;
+                final password =passwordcontroller.text;
+
+                final Result = await AuthService.login(username, password);
+
+                if (Result['statusCode'==201]){
+                  Navigator.pushNamed(context,'/Sign');
+                }
+                else{
+                  
+                }
+              },
               child:Text("LOG IN",style:TextStyle(color:Colors.purple,)),
-              onPressed:(){}
             )
                      ],),
           )
