@@ -73,7 +73,11 @@ class login extends StatelessWidget{
                   Navigator.pushNamed(context,'/Sign');
                 }
                 else{
-                  
+                  final error = Result['body'];
+                  ScaffoldMessenger.of(context).
+                    showSnackBar(
+                      SnackBar(content:Text(error.toString()))
+                    );
                 }
               },
               child:Text("LOG IN",style:TextStyle(color:Colors.purple,)),
