@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'transactionmodel.dart';
-
+import 'util/personalbudget.dart';
+import 'util/shared.dart';
 class Budget extends StatefulWidget {
     final List<Transactionmodel> transactions;
   final double? currentBudget;
@@ -64,19 +65,47 @@ class _BudgetState extends State<Budget> {
         ElevatedButton(
           style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
           onPressed: () {
-            final value = double.tryParse(budgetController.text.trim());
-            if (value == null || value <= 0) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Enter a valid budget")),
-              );
-              return;
-            }
-            setState(() {
-              totalBudget = value;
-              budgetController.clear();
-            });
+            showModalBottomSheet(
+              context:context,
+              builder:(context){
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ListTile(
+                      leading: Icon(Icons.person, color:Colors.purple),
+                      title:Text("Personal Budget"),
+                      subtitle: Text("Track your personal expenses",style:TextStyle(fontStyle:FontStyle.italic)),
+                      onTap:(){
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context)=>PersonalBudgetForm())
+                          
+                          
+                          );
+                      }
+                    ),
+                    ListTile(
+                      leading:Icon(Icons.group,color:Colors.purple),
+                      title:Text("Shared Budget"),
+                      subtitle: Text("Share budget with Friends and family",style:TextStyle(fontStyle:FontStyle.italic)),
+                      onTap:(){
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder:(context)=>SharedBudgetForm())
+                        );
+                      },
+
+                    )
+
+                ],);
+              }
+            );
+            
+            
           },
-          child: const Text("Set Budget"),
+          child: const Text("Set Budget",style:TextStyle(color:Colors.white)),
         ),
       ],
     );
@@ -103,7 +132,7 @@ class _BudgetState extends State<Budget> {
         ElevatedButton(
           style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
           onPressed: showEditBudgetDialog,
-          child: const Text("Edit Budget"),
+          child: const Text("Edit Budget",style:TextStyle(color:Colors.white)),
         ),
       ],
     );
